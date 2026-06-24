@@ -1,3 +1,6 @@
+import "./globals.css";
+import Terminal from "@/components/terminal";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +8,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className="antialiased flex flex-col md:flex-row h-screen w-full overflow-hidden">
+        <Terminal />
+        <div className="flex-1 w-full h-full relative overflow-auto bg-slate-950">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
