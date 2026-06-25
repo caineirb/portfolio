@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { MinusIcon, ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon, CommandLineIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+import commands, { type Command } from "@/data/commands";
 
 type TerminalMode = "docked-left" | "docked-right" | "docked-bottom" | "floating" | "minimized";
-type ResizeDirection = "n" | "s" | "e" | "w" | "se" | false;
+type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw" | false;
 
 export default function Terminal() {
     const [mode, setMode] = useState<TerminalMode>("docked-left");
@@ -15,19 +17,25 @@ export default function Terminal() {
     const [isMobile, setIsMobile] = useState(false);
 
     const dragStart = useRef({ x: 0, y: 0, posX: 0, posY: 0 });
-    const resizeStart = useRef({ width: 0, height: 0, x: 0, y: 0 });
+    const resizeStart = useRef({ width: 0, height: 0, x: 0, y: 0, posX: 0, posY: 0 });
 
     const [history, setHistory] = useState<{ id: number, command: string, output: React.ReactNode }[]>([]);
     const [commandHistory, setCommandHistory] = useState<string[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
     const [input, setInput] = useState("");
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLTextAreaElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Auto-scroll to bottom
+    const router = useRouter();
+
+    // Auto-scroll to bottom and auto-resize input
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto';
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
         }
     }, [history, input]);
 
@@ -35,54 +43,26 @@ export default function Terminal() {
         const trimmed = cmd.trim();
         if (!trimmed) return;
 
-        let output: React.ReactNode = "";
         const args = trimmed.split(" ");
-        const baseCmd = args[0].toLowerCase();
+        const { name, description, output, navigate } = commands(args);
 
-        switch (baseCmd) {
-            case "whoami":
-                output = (
-                    <div>
-                        <p>name: caineirb</p>
-                        <p>role: Software Engineer</p>
-                        <p>location: Earth</p>
-                    </div>
-                );
-                break;
-            case "help":
-                output = (
-                    <div>
-                        <p>Available commands:</p>
-                        <ul className="list-disc ml-5">
-                            <li>whoami - display user information</li>
-                            <li>help - display this help message</li>
-                            <li>clear - clear the terminal</li>
-                            <li>date - display current date and time</li>
-                            <li>echo [text] - print text</li>
-                        </ul>
-                    </div>
-                );
-                break;
-            case "date":
-                output = new Date().toString();
-                break;
-            case "echo":
-                output = args.slice(1).join(" ");
-                break;
-            case "clear":
-                setHistory([]);
-                return;
-            default:
-                output = <p className="text-red-400">command not found: {baseCmd}</p>;
+        if (args[0] === "clear") {
+            setHistory([]);
+            return;
         }
 
-        setHistory(prev => [...prev, { id: Date.now(), command: trimmed, output }]);
+        if (navigate) {
+            router.push(navigate);
+        }
+
+        setHistory(prev => [...prev, { id: Date.now(), command: trimmed, output: output() }]);
         setCommandHistory(prev => [...prev, trimmed]);
         setHistoryIndex(-1);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
             handleCommand(input);
             setInput("");
         } else if (e.key === "ArrowUp") {
@@ -168,6 +148,8 @@ export default function Terminal() {
             height: size.height,
             x: e.clientX,
             y: e.clientY,
+            posX: position.x,
+            posY: position.y,
         };
         e.currentTarget.setPointerCapture(e.pointerId);
     };
@@ -180,21 +162,38 @@ export default function Terminal() {
 
         let newWidth = resizeStart.current.width;
         let newHeight = resizeStart.current.height;
+        let newPosX = resizeStart.current.posX;
+        let newPosY = resizeStart.current.posY;
 
-        if (resizeDir === 'e' || resizeDir === 'se') {
+        if (resizeDir.includes('e')) {
             newWidth = Math.max(250, resizeStart.current.width + dx);
         }
-        if (resizeDir === 'w') {
-            newWidth = Math.max(250, resizeStart.current.width - dx);
+        if (resizeDir.includes('w')) {
+            const proposedWidth = resizeStart.current.width - dx;
+            if (proposedWidth >= 250) {
+                newWidth = proposedWidth;
+                newPosX = resizeStart.current.posX + dx;
+            } else {
+                newWidth = 250;
+                newPosX = resizeStart.current.posX + (resizeStart.current.width - 250);
+            }
         }
-        if (resizeDir === 's' || resizeDir === 'se') {
+        if (resizeDir.includes('s')) {
             newHeight = Math.max(150, resizeStart.current.height + dy);
         }
-        if (resizeDir === 'n') {
-            newHeight = Math.max(150, resizeStart.current.height - dy);
+        if (resizeDir.includes('n')) {
+            const proposedHeight = resizeStart.current.height - dy;
+            if (proposedHeight >= 150) {
+                newHeight = proposedHeight;
+                newPosY = resizeStart.current.posY + dy;
+            } else {
+                newHeight = 150;
+                newPosY = resizeStart.current.posY + (resizeStart.current.height - 150);
+            }
         }
 
         setSize({ width: newWidth, height: newHeight });
+        setPosition({ x: newPosX, y: newPosY });
     };
 
     const handleResizeUp = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -280,10 +279,16 @@ export default function Terminal() {
             {mode === "docked-bottom" && renderResizer("n", "-top-1 left-0 w-full h-2 cursor-row-resize")}
             {mode === "floating" && (
                 <>
-                    {renderResizer("e", "top-0 -right-1 w-2 h-full cursor-col-resize")}
+                    {/* Edges */}
+                    {renderResizer("n", "-top-1 left-0 w-full h-2 cursor-row-resize")}
                     {renderResizer("s", "-bottom-1 left-0 w-full h-2 cursor-row-resize")}
+                    {renderResizer("e", "top-0 -right-1 w-2 h-full cursor-col-resize")}
                     {renderResizer("w", "top-0 -left-1 w-2 h-full cursor-col-resize")}
-                    {renderResizer("se", "bottom-0 right-0 w-4 h-4 cursor-nwse-resize")}
+                    {/* Corners */}
+                    {renderResizer("nw", "-top-2 -left-2 w-4 h-4 cursor-nwse-resize")}
+                    {renderResizer("ne", "-top-2 -right-2 w-4 h-4 cursor-nesw-resize")}
+                    {renderResizer("sw", "-bottom-2 -left-2 w-4 h-4 cursor-nesw-resize")}
+                    {renderResizer("se", "-bottom-2 -right-2 w-4 h-4 cursor-nwse-resize")}
                 </>
             )}
 
@@ -325,26 +330,26 @@ export default function Terminal() {
 
                 {history.map((entry) => (
                     <div key={entry.id} className="mb-2">
-                        <div className="flex">
-                            <span className="text-blue-400 mr-2">caineirb@portfolio:~</span>
-                            <span>$ {entry.command}</span>
+                        <div className="flex flex-wrap">
+                            <span className="text-blue-400 mr-2 shrink-0">caineirb@portfolio:~</span>
+                            <span className="break-all">$ {entry.command}</span>
                         </div>
-                        <div className="mt-1 text-gray-300 whitespace-pre-wrap">
+                        <div className="mt-1 text-gray-300 whitespace-pre-wrap break-all">
                             {entry.output}
                         </div>
                     </div>
                 ))}
 
-                <div className="flex items-center">
-                    <span className="text-blue-400 mr-2 shrink-0">caineirb@portfolio:~</span>
-                    <span className="shrink-0 mr-1">$ </span>
-                    <input
+                <div className="flex items-start">
+                    <span className="text-blue-400 mr-2 shrink-0 mt-[1px]">caineirb@portfolio:~</span>
+                    <span className="shrink-0 mr-1 mt-[1px]">$ </span>
+                    <textarea
                         ref={inputRef}
-                        type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        className="flex-1 bg-transparent border-none outline-none text-green-500 min-w-0 p-0 focus:ring-0"
+                        className="flex-1 bg-transparent border-none outline-none text-green-500 min-w-0 p-0 focus:ring-0 resize-none overflow-hidden block break-all"
+                        rows={1}
                         autoFocus
                         spellCheck={false}
                         autoComplete="off"
