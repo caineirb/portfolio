@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { MinusIcon, ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon, CommandLineIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
@@ -44,7 +44,7 @@ export default function Terminal() {
         if (!trimmed) return;
 
         const args = trimmed.split(" ");
-        const { name, description, output, navigate } = commands(args);
+        const { name, description, output, navigate }: Command = commands(args);
 
         if (args[0] === "clear") {
             setHistory([]);
@@ -325,7 +325,7 @@ export default function Terminal() {
             >
                 <div className="mb-4 text-green-600">
                     <p>Welcome to portfolioOS v1.0.0</p>
-                    <p>Type "help" to see available commands.</p>
+                    <p>Type &quot;help&quot; to see available commands.</p>
                 </div>
 
                 {history.map((entry) => (

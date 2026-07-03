@@ -38,14 +38,17 @@ export default function commands(args: string[]): Command {
             description: "Display the help message.",
             output: () => (
                 <div>
-                    <p>Available commands:</p>
-                    <ul className="list-disc ml-5">
+                    <p className="mb-4">Available commands:</p>
+                    <div className="flex flex-col gap-3">
                         {Object.entries(commands).map(([cmdName, cmdData]) => (
-                            <li key={cmdName}>
-                                {cmdName === 'echo' ? 'echo [text]' : cmdName} - {cmdData.description}
-                            </li>
+                            <div key={cmdName}>
+                                <div className="text-green-400">{cmdData.name}:</div>
+                                <div className="ml-8">
+                                    {cmdName === 'echo' ? 'echo [text]' : cmdName} - {cmdData.description}
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             )
         },
