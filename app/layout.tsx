@@ -1,5 +1,6 @@
 import "./globals.css";
 import Terminal from "@/components/terminal";
+import React from "react";
 
 export default function RootLayout({
   children,

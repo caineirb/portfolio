@@ -44,7 +44,10 @@ export default function Terminal() {
         if (!trimmed) return;
 
         const args = trimmed.split(" ");
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { name, description, output, navigate }: Command = commands(args);
+
 
         if (args[0] === "clear") {
             setHistory([]);
