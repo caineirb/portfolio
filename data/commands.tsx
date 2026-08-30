@@ -33,6 +33,16 @@ export default function commands(args: string[]): Command {
             ),
             navigate: "/whoami"
         },
+        projects: {
+            name: "Projects Command",
+            description: "Display the projects list.",
+            output: () => (
+                <div>
+                    <p>Projects</p>
+                </div>
+            ),
+            navigate: "/projects"
+        },
         help: {
             name: "Help Command",
             description: "Display the help message.",

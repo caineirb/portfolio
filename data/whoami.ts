@@ -25,7 +25,7 @@ export const BIO: Bio = {
     position: "Software Engineer",
     location: "Iligan City, Philippines",
     bio: "I'm a software engineer with experience in developing and maintaining software systems. I'm passionate about building scalable, high-performance, and user-friendly applications. I thrive on turning complex problems into elegant, maintainable code, specializing in modern web technologies.",
-    email: "caine.bautista@gmail.com",
+    email: "caineivanr.bautista@gmail.com",
     github: "https://github.com/caineirb",
     linkedin: "https://www.linkedin.com/in/caineivanbautista",
     languages: ["English", "Filipino"],
@@ -39,7 +39,7 @@ export const SKILLS: Record<string, { skills: string[], config: { color: string 
         }
     },
     "Backend": {
-        skills: ["Node.js", "Express", "RestAPI", "NestJS", "FastAPI", "Flask"],
+        skills: ["Node.js", "Express", "RestAPI", "NestJS", "FastAPI", "Flask", "Laravel"],
         config: {
             color: "green"
         }
@@ -57,7 +57,7 @@ export const SKILLS: Record<string, { skills: string[], config: { color: string 
         }
     },
     "Programming Languages": {
-        skills: ["Python", "Java", "C++", "C", "JavaScript", "HTML+CSS", "SQL", "TypeScript", "Rust"],
+        skills: ["Python", "Java", "C++", "C", "JavaScript", "HTML+CSS", "SQL", "TypeScript", "Rust", "PHP"],
         config: {
             color: "yellow"
         }
@@ -69,8 +69,8 @@ export const EXPERIENCE: Experience[] = [
         role: "Software Engineer",
         company: "Anura Innovations Inc.",
         location: "Iligan City, Philippines",
-        startDate: "Jan 2026",
-        endDate: "Present",
+        startDate: "July 2025",
+        endDate: "July 2026",
         description: [
             "Develop and maintain scalable SaaS applications, including customization of inventory management systems for client-specific requirements.",
             "Implement new features, enhancements, and system integrations to support business workflows and improve usability.",

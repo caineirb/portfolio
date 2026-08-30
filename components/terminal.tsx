@@ -2,14 +2,15 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { MinusIcon, ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon, CommandLineIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import commands, { type Command } from "@/data/commands";
 
 type TerminalMode = "docked-left" | "docked-right" | "docked-bottom" | "floating" | "minimized";
 type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw" | false;
 
 export default function Terminal() {
-    const [mode, setMode] = useState<TerminalMode>("docked-left");
+    const inBlog = usePathname().startsWith("/blog");
+    const [mode, setMode] = useState<TerminalMode>(inBlog ? "minimized" : "docked-left");
     const [position, setPosition] = useState({ x: 50, y: 50 });
     const [size, setSize] = useState({ width: 400, height: 400 });
     const [isDragging, setIsDragging] = useState(false);
