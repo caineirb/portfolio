@@ -24,7 +24,7 @@ export default function commands(args: string[]): Command {
         },
         whoami: {
             name: "WHOAMI Command",
-            description: "Display the mini version of the person owner.",
+            description: "Display the mini version of the person owner, then navigates you to the Whoami Page.",
             output: () => (
                 <div>
                     <p>User Name: Caineirb </p>
@@ -35,10 +35,10 @@ export default function commands(args: string[]): Command {
         },
         projects: {
             name: "Projects Command",
-            description: "Display the projects list.",
+            description: "Display the projects list, then navigates you to the Projects Page.",
             output: () => (
                 <div>
-                    <p>Projects</p>
+                    <p>Redirecting to Projects page...</p>
                 </div>
             ),
             navigate: "/projects"
