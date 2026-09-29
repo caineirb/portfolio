@@ -18,7 +18,7 @@ import {
 import ProjectCard from "@/components/project-card";
 
 const sectionIconMap: Record<ProjectSection, React.ElementType> = {
-  "part-time": BriefcaseIcon,
+  "industry": BriefcaseIcon,
   "personal": SparklesIcon,
   "academic": AcademicCapIcon,
 };

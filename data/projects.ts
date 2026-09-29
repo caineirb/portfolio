@@ -1,6 +1,8 @@
-export type ProjectSection = "part-time" | "personal" | "academic";
+export type ProjectSection = "industry" | "personal" | "academic";
 
 export type RepoType = "github" | "gitlab" | "bitbucket" | "other";
+
+export type ProjectAvailability = "NDA" | "Visible";
 
 export interface Project {
   /** Unique identifier for the project (also matches image name in public/projects) */
@@ -14,14 +16,11 @@ export interface Project {
    * Used for filtering projects across sections.
    */
   category: string;
+  /** Visibility status: "NDA" for confidential client projects, "Visible" for public */
+  availability: ProjectAvailability;
   /** Comprehensive project description */
   description: string;
-  /**
-   * Optional custom image path override.
-   * If omitted, defaults to `/projects/${id}.png` (or .jpg/.jpeg)
-   * and falls back to `/projects/default-project.png` (or .jpg/.jpeg).
-   */
-  image?: string;
+
   /**
    * Confidentiality notes, NDA limitations, architecture caveats,
    * or details explaining why certain source codes/data are restricted.
@@ -33,12 +32,15 @@ export interface Project {
   repoType?: RepoType;
   /** Custom label for the repository button (e.g. "GitLab", "Client Repo") */
   repoLabel?: string;
-  /** Live deployment, demo, or project website URL (if available) */
+  /**
+   * Live deployment, demo, paper, or project website URL (if available).
+   * Displayed as an action link in the card and modal.
+   */
   projectUrl?: string;
   /** Technology stack tags (e.g. React, NestJS, YOLO, TypeScript) */
   technologies?: string[];
-  /** Your role in the project (e.g. "Software Engineer", "Lead Developer") */
-  role?: string;
+  /** Your roles in the project (e.g. ["Software Engineer", "Lead Developer"]) */
+  role?: string[];
   /** Timeline or date range (e.g. "Jul 2025 - Jul 2026", "2024") */
   period?: string;
   /** Whether to highlight the project with a featured badge */
@@ -55,9 +57,9 @@ export interface ProjectSectionConfig {
 }
 
 export const PROJECT_SECTIONS: Record<ProjectSection, ProjectSectionConfig> = {
-  "part-time": {
-    id: "part-time",
-    title: "Part-Time & Industry Work",
+  "industry": {
+    id: "industry",
+    title: "Industry Work",
     subtitle: "Enterprise systems, SaaS platforms, and client solutions",
     badge: "Professional Experience",
     description: "Production-grade applications and systems built during software engineering roles and internships.",
@@ -81,120 +83,21 @@ export const PROJECT_SECTIONS: Record<ProjectSection, ProjectSectionConfig> = {
   },
 };
 
+import {
+  industryProjects,
+  personalProjects,
+  academicProjects,
+} from "./projects-list";
+
 /**
- * All projects data.
- * To add a new project, simply append an object conforming to the Project interface.
- * The projects page will dynamically categorize, filter, and display it.
+ * All projects data composed from modular lists in `./projects-list/`.
+ * To add a new project, edit the corresponding file in `data/projects-list/`
+ * (industry.ts, personal.ts, or academics.ts).
  */
 export const PROJECTS: Project[] = [
-  // ==========================================
-  // PART-TIME & PROFESSIONAL WORK
-  // ==========================================
-  {
-    id: "enterprise-inventory-saas",
-    name: "Enterprise Inventory Management SaaS",
-    section: "part-time",
-    category: "Web Dev",
-    role: "Software Engineer",
-    period: "Jul 2025 - Jul 2026",
-    description:
-      "Engineered and maintained a scalable multi-tenant SaaS inventory platform tailored for enterprise clients. Implemented customized stock tracking workflows, automated replenishment notifications, role-based access management, and business analytics dashboards.",
-    notes:
-      "Enterprise client codebase protected under strict Non-Disclosure Agreement (NDA). Repository links, database schemas, and proprietary company workflows are strictly confidential.",
-    repoUrl: "https://gitlab.com",
-    repoType: "gitlab",
-    repoLabel: "GitLab (Private NDA)",
-    technologies: ["React", "TypeScript", "NestJS", "PostgreSQL", "Docker", "Tailwind CSS", "REST API"],
-    featured: true,
-  },
-  {
-    id: "yolo-object-detection-system",
-    name: "Real-Time Video Object Detection System",
-    section: "part-time",
-    category: "ML",
-    role: "Software Engineer Intern",
-    period: "Jun 2025 - Jul 2025",
-    description:
-      "Developed a real-time object detection and video processing platform integrating YOLO models with live camera feeds. Built high-throughput video frame processing pipelines and responsive UI dashboards for automated facility monitoring and event logging.",
-    notes:
-      "Developed for internal client security infrastructure under NDA. Custom model weights and live camera feed endpoints are omitted for confidentiality; architecture overview and video demonstration available upon request.",
-    repoType: "github",
-    technologies: ["React", "Node.js", "NestJS", "PostgreSQL", "YOLO", "Python", "OpenCV"],
-    featured: true,
-  },
-
-  // ==========================================
-  // PERSONAL PROJECTS
-  // ==========================================
-  {
-    id: "interactive-terminal-portfolio",
-    name: "Interactive Terminal & GUI Portfolio",
-    section: "personal",
-    category: "Web Dev",
-    role: "Creator & Full-Stack Developer",
-    period: "2025 - Present",
-    description:
-      "A dual-interface developer portfolio blending an interactive Linux-style draggable/resizable command-line terminal with polished modern web pages. Features dynamic commands, window management, markdown blogging, and responsive layouts.",
-    notes:
-      "Fully open-source project. Designed to showcase modern web engineering capabilities, TypeScript architecture, and bespoke UI component design.",
-    repoUrl: "https://github.com/caineirb/portfolio",
-    repoType: "github",
-    projectUrl: "https://github.com/caineirb/portfolio",
-    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "MDX", "Heroicons"],
-    featured: true,
-  },
-  {
-    id: "async-task-rest-service",
-    name: "Asynchronous REST & Task Engine",
-    section: "personal",
-    category: "Backend",
-    role: "Backend Developer",
-    period: "2024 - 2025",
-    description:
-      "High-throughput asynchronous REST API service architected with FastAPI and PostgreSQL. Implements background job queues, distributed token-based authentication (JWT), caching layers, and containerized Docker environments.",
-    notes:
-      "Built as an open-source template for microservice architectures adhering to clean architecture and automated CI/CD testing pipelines.",
-    repoUrl: "https://github.com/caineirb",
-    repoType: "github",
-    technologies: ["FastAPI", "Python", "PostgreSQL", "Docker", "Redis", "SQLAlchemy"],
-    featured: false,
-  },
-
-  // ==========================================
-  // ACADEMIC PROJECTS (MSU-IIT)
-  // ==========================================
-  {
-    id: "automata-theory-simulator",
-    name: "Theoretical Computing & Automata Simulator",
-    section: "academic",
-    category: "Systems",
-    role: "Undergraduate Researcher & Developer",
-    period: "2024 - 2025",
-    description:
-      "Interactive visualizer and simulation suite for formal languages and automata theory. Supports Deterministic & Non-Deterministic Finite Automata (DFA/NFA), Pushdown Automata (PDA), and Turing Machines with real-time state transitions and string validation.",
-    notes:
-      "Undergraduate Computer Science academic project developed at Mindanao State University - Iligan Institute of Technology (MSU-IIT). Used as an educational aid for theoretical computer science coursework.",
-    repoUrl: "https://github.com/caineirb",
-    repoType: "github",
-    technologies: ["TypeScript", "React", "Python", "Algorithms", "Graph Theory", "Tailwind CSS"],
-    featured: true,
-  },
-  {
-    id: "graph-pathfinding-benchmark",
-    name: "Graph Traversal & Pathfinding Benchmark",
-    section: "academic",
-    category: "Algorithms",
-    role: "Algorithm Developer",
-    period: "2023 - 2024",
-    description:
-      "Comparative benchmarking and visualization suite evaluating shortest path and minimum spanning tree algorithms (Dijkstra, A* Search, Bellman-Ford, Prim's, Kruskal's) across dense, sparse, and randomized grid topologies.",
-    notes:
-      "Coursework project for Advanced Data Structures and Algorithms (CS 102). Highlights empirical time complexity comparisons and memory profiling.",
-    repoUrl: "https://github.com/caineirb",
-    repoType: "github",
-    technologies: ["C++", "Python", "Algorithms", "Data Structures", "Performance Profiling"],
-    featured: false,
-  },
+  ...industryProjects,
+  ...personalProjects,
+  ...academicProjects,
 ];
 
 /**
@@ -223,3 +126,39 @@ export function detectRepoType(url?: string): RepoType {
   if (lower.includes("bitbucket.org") || lower.includes("bitbucket")) return "bitbucket";
   return "other";
 }
+
+/**
+ * Helper to get candidate image paths for a project card and primary slide.
+ * Looks for `/projects/${id}/${id}.gif`, `.png`, `.jpg`, `.jpeg`,
+ * with fallbacks to root `/projects/${id}.*` and `/projects/default-project.png`.
+ */
+export function getProjectCandidateImages(project: Project): string[] {
+  return [
+    `/projects/${project.id}/${project.id}.gif`,
+    `/projects/${project.id}/${project.id}.png`,
+    `/projects/${project.id}/${project.id}.jpg`,
+    `/projects/${project.id}/${project.id}.jpeg`,
+    `/projects/${project.id}/${project.id}.avif`,
+    `/projects/${project.id}.gif`,
+    `/projects/${project.id}.png`,
+    `/projects/${project.id}.jpg`,
+    `/projects/${project.id}.jpeg`,
+    "/projects/default-project.png",
+    "/projects/default-project.jpg",
+    "/projects/default-project.jpeg",
+  ];
+}
+
+/**
+ * Helper to resolve fallback gallery images for a project modal slideshow.
+ * Defaults to the primary resolved image. Additional images are auto-discovered from the folder.
+ */
+export function getProjectSlideshowImages(
+  project: Project,
+  mainResolvedImage?: string
+): string[] {
+  const primary =
+    mainResolvedImage || `/projects/${project.id}/${project.id}.gif`;
+  return [primary];
+}
+
