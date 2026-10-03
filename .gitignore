@@ -20,6 +20,7 @@
 # misc
 .DS_Store
 *.pem
+media_backup/
 
 # debug
 npm-debug.log*

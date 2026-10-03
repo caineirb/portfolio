@@ -7,12 +7,11 @@ import {
   CheckIcon,
   PlayIcon,
   ArrowPathIcon,
-  CodeBracketIcon,
   ServerIcon,
 } from "@heroicons/react/24/outline";
 
 export default function BackendCodeWindow() {
-  const [activeTab, setActiveTab] = useState<"curl" | "response" | "backend">("curl");
+  const [activeTab, setActiveTab] = useState<"curl" | "response">("curl");
   const [activeFilter, setActiveFilter] = useState<string>("default");
   const [host, setHost] = useState<string>("caineirb.qzz.io");
   const [copied, setCopied] = useState<boolean>(false);
@@ -81,30 +80,47 @@ export default function BackendCodeWindow() {
     executeCurl(filter);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(currentCurlCommand);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async (customCmd?: string) => {
+    const textToCopy = customCmd || currentCurlCommand;
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(textToCopy);
+      } else if (typeof document !== "undefined") {
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy command:", err);
+    }
   };
 
   return (
     <div className="w-full rounded-2xl bg-slate-950/95 border border-slate-800 shadow-2xl backdrop-blur-2xl overflow-hidden transition-all duration-300 hover:border-green-500/40 font-mono text-xs">
       {/* Top Window Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-slate-900/90 border-b border-slate-800/80">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 px-3.5 py-1.5 bg-slate-900/90 border-b border-slate-800/80">
+        <div className="flex items-center gap-2.5">
           {/* Unix Window Control Dots */}
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-            <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
-            <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block" />
           </div>
 
           {/* Mode Tabs */}
-          <div className="flex items-center gap-1 ml-2">
+          <div className="flex items-center gap-1 ml-1.5">
             <button
               type="button"
               onClick={() => setActiveTab("curl")}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] transition-colors ${activeTab === "curl"
+              className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] transition-colors ${activeTab === "curl"
                 ? "bg-slate-950 text-green-400 font-semibold border border-slate-700/80"
                 : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
                 }`}
@@ -115,7 +131,7 @@ export default function BackendCodeWindow() {
             <button
               type="button"
               onClick={() => setActiveTab("response")}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] transition-colors ${activeTab === "response"
+              className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] transition-colors ${activeTab === "response"
                 ? "bg-slate-950 text-cyan-400 font-semibold border border-slate-700/80"
                 : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
                 }`}
@@ -123,17 +139,6 @@ export default function BackendCodeWindow() {
               <ServerIcon className="w-3.5 h-3.5" />
               response.json
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse ml-0.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("backend")}
-              className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] transition-colors ${activeTab === "backend"
-                ? "bg-slate-950 text-purple-400 font-semibold border border-slate-700/80"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
-                }`}
-            >
-              <CodeBracketIcon className="w-3.5 h-3.5" />
-              route.ts
             </button>
           </div>
         </div>
@@ -144,7 +149,7 @@ export default function BackendCodeWindow() {
             type="button"
             onClick={() => executeCurl(activeFilter)}
             disabled={isLoading}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-500/60 transition-colors text-[10px] font-semibold"
+            className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-500/60 transition-colors text-[10px] font-semibold cursor-pointer"
             title="Execute live cURL in browser"
           >
             {isLoading ? (
@@ -154,30 +159,11 @@ export default function BackendCodeWindow() {
             )}
             <span>Run cURL</span>
           </button>
-
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/70 border border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-[10px]"
-            title="Copy command to clipboard"
-          >
-            {copied ? (
-              <>
-                <CheckIcon className="w-3.5 h-3.5 text-green-400" />
-                <span className="text-green-400">Copied</span>
-              </>
-            ) : (
-              <>
-                <ClipboardDocumentIcon className="w-3.5 h-3.5" />
-                <span>Copy</span>
-              </>
-            )}
-          </button>
         </div>
       </div>
 
       {/* Query Filter Pills */}
-      <div className="flex flex-wrap items-center gap-1.5 px-4 py-2 bg-slate-950/90 border-b border-slate-800/60 text-[10px] text-slate-400">
+      <div className="flex flex-wrap items-center gap-1.5 px-3.5 py-1.5 bg-slate-950/90 border-b border-slate-800/60 text-[10px] text-slate-400">
         <span className="text-slate-500 mr-1">Endpoints:</span>
         {[
           { id: "default", label: "GET /api/engineer (Full)" },
@@ -189,7 +175,7 @@ export default function BackendCodeWindow() {
             key={f.id}
             type="button"
             onClick={() => handleFilterChange(f.id)}
-            className={`px-2.5 py-0.5 rounded-full transition-all ${activeFilter === f.id
+            className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${activeFilter === f.id
               ? "bg-green-500/20 text-green-300 border border-green-500/40 font-semibold"
               : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
               }`}
@@ -200,24 +186,42 @@ export default function BackendCodeWindow() {
       </div>
 
       {/* Main Terminal / Code Content */}
-      <div className="p-4 md:p-5 overflow-x-auto custom-scrollbar max-h-[350px] md:max-h-[370px] bg-slate-950 leading-relaxed font-mono">
+      <div className="p-3 sm:p-3.5 bg-slate-950 leading-relaxed font-mono">
         {activeTab === "curl" && (
-          <div className="space-y-4">
+          <div className="space-y-2.5">
             {/* cURL Command Block */}
-            <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/90 space-y-2">
-              <div className="text-[10px] uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                Run in your local terminal:
+            <div className="p-2.5 rounded-xl bg-slate-900/70 border border-slate-800/90 hover:border-slate-700/80 transition-all space-y-2 group/cmd">
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-[10px] uppercase tracking-wider text-slate-400 flex items-center gap-1.5 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  Run in your local terminal:
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-slate-200 text-xs md:text-sm select-all min-w-0">
-                <span className="text-green-400 select-none shrink-0">$</span>
-                <span className="text-cyan-300 font-bold break-all">{currentCurlCommand}</span>
+
+              <div className="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-lg bg-slate-950/90 border border-slate-800/80 hover:border-slate-700/70 transition-colors">
+                <div className="flex items-center gap-2 text-slate-200 text-xs md:text-sm select-all min-w-0 font-mono">
+                  <span className="text-green-400 select-none shrink-0 font-bold">$</span>
+                  <span className="text-cyan-300 font-bold break-all">{currentCurlCommand}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleCopy()}
+                  className="shrink-0 p-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-green-400 border border-slate-800 hover:border-slate-700 transition-all active:scale-95 cursor-pointer"
+                  aria-label="Copy cURL command"
+                  title="Copy cURL command"
+                >
+                  {copied ? (
+                    <CheckIcon className="w-3.5 h-3.5 text-green-400" />
+                  ) : (
+                    <ClipboardDocumentIcon className="w-3.5 h-3.5" />
+                  )}
+                </button>
               </div>
             </div>
 
             {/* Live Terminal Output Preview */}
             <div className="space-y-1">
-              <div className="flex items-center justify-between text-[11px] text-slate-500 pb-1 border-b border-slate-900">
+              <div className="flex items-center justify-between text-[11px] text-slate-500 pb-0.5 border-b border-slate-900">
                 <span className="flex items-center gap-2">
                   <span className="text-green-400 font-bold">STATUS: {responseStatus}</span>
                   <span>•</span>
@@ -226,9 +230,9 @@ export default function BackendCodeWindow() {
                 <span className="text-slate-600">application/json</span>
               </div>
 
-              <pre className="text-slate-300 text-[11px] overflow-x-auto custom-scrollbar pt-2 max-h-[220px]">
+              <pre className="text-slate-300 text-[11px] overflow-auto custom-scrollbar pt-1.5 max-h-[190px] md:max-h-[210px]">
                 {isLoading ? (
-                  <div className="py-8 text-center text-slate-500 animate-pulse flex items-center justify-center gap-2">
+                  <div className="py-6 text-center text-slate-500 animate-pulse flex items-center justify-center gap-2">
                     <ArrowPathIcon className="w-4 h-4 animate-spin text-green-400" />
                     Executing request against {currentEndpoint}...
                   </div>
@@ -241,65 +245,23 @@ export default function BackendCodeWindow() {
         )}
 
         {activeTab === "response" && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-[11px] text-slate-400 pb-1 border-b border-slate-800">
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 pb-0.5 border-b border-slate-800">
               <span className="text-green-400 font-semibold flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 HTTP/1.1 {responseStatus}
               </span>
               <span>Round-Trip: {responseLatency}</span>
             </div>
-            <pre className="text-emerald-400 text-[11px] overflow-x-auto custom-scrollbar">
+            <pre className="text-emerald-400 text-[11px] overflow-auto custom-scrollbar max-h-[250px]">
               <code>{responseData}</code>
-            </pre>
-          </div>
-        )}
-
-        {activeTab === "backend" && (
-          <div className="space-y-2 text-slate-300 text-[11px]">
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider pb-1 border-b border-slate-900">
-              Next.js App Router API Route — app/api/engineer/route.ts
-            </div>
-            <pre className="text-slate-300 leading-relaxed overflow-x-auto custom-scrollbar">
-              <code>{`import { NextRequest, NextResponse } from "next/server";
-import { BIO, EXPERIENCE, SKILLS } from "@/data/whoami";
-import { PROJECTS } from "@/data/projects";
-
-// GET /api/engineer
-export async function GET(request: NextRequest) {
-  const { searchParams } = request.nextUrl;
-  const filter = searchParams.get("filter");
-
-  return NextResponse.json({
-    status: 200,
-    service: "caineirb-backend-core",
-    profile: {
-      name: BIO.name,
-      role: "Backend & Machine Learning Engineer",
-      academics: "MSU-IIT Magna Cum Laude • DOST-SEI Scholar",
-      contact: { email: BIO.email, github: BIO.github }
-    },
-    specializations: [
-      "High-Concurrency Backend Microservices",
-      "Real-Time Computer Vision (YOLO, ReID)",
-      "Distributed Caching & Queues (Redis, PostgreSQL)"
-    ],
-    technical_stack: SKILLS,
-    telemetry: { throughput: "15,000 req/s", latency: "3.2ms" }
-  }, {
-    headers: {
-      "X-Powered-By": "FastAPI / Next.js Async Engine",
-      "Access-Control-Allow-Origin": "*"
-    }
-  });
-}`}</code>
             </pre>
           </div>
         )}
       </div>
 
       {/* Code Editor Status Bar */}
-      <div className="flex flex-wrap items-center justify-between px-4 py-2 bg-slate-900/90 border-t border-slate-800/80 text-[10px] text-slate-400 gap-2">
+      <div className="flex flex-wrap items-center justify-between px-3.5 py-1.5 bg-slate-900/90 border-t border-slate-800/80 text-[10px] text-slate-400 gap-2">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1.5 text-green-400 font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />

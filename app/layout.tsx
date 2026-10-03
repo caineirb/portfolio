@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: "Caine Ivan Bautista Portfolio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/projects/interactive-terminal-portfolio/interactive-terminal-portfolio.png",
         width: 1200,
         height: 630,
         alt: "Caine Ivan Bautista - Software Engineer Avatar & Portfolio Preview",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Caine Ivan Bautista Portfolio",
     description:
       "Portfolio of Caine Ivan R. Bautista - Software Engineer specializing in scalable backends, real-time computer vision, and production ML.",
-    images: ["/og-image.png"],
+    images: ["/projects/interactive-terminal-portfolio/interactive-terminal-portfolio.png"],
   },
 };
 
