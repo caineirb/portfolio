@@ -7,31 +7,32 @@ interface AvatarArtProps {
   size?: string;
 }
 
+export const AVATAR_OPTIONS = {
+  title: "Home-Avatar",
+  borderRadius: 0,
+  tags: ["animation"],
+  animationVariant: ["fastest"],
+  cheeksVariant: ["blush"],
+  eyebrowsVariant: ["soft"],
+  eyesVariant: ["sleepy"],
+  glassesVariant: ["round"],
+  glassesProbability: 100,
+  mouthVariant: ["flat"],
+  nostVariant: ["tall"],
+  outfitVariant: ["hoodie"],
+  topVariant: ["curly"],
+  hairColor: ["030302"],
+  hairColorFill: ["radial"],
+  shirtColor: ["0F0E0E"],
+  pantsColor: ["291919"],
+  shoesColor: ["E8E8E3"],
+  skinColor: ["D9B482"],
+  backgroundColor: ["16161a"]
+} as const;
+
 export default function AvatarArt({ className = "", size = "w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" }: AvatarArtProps) {
   const style = new Style(definition);
-  const options = {
-    title: "Home-Avatar",
-    borderRadius: 0,
-    tags: ["animation"],
-    animationVariant: ["fastest"],
-    cheeksVariant: ["blush"],
-    eyebrowsVariant: ["soft"],
-    eyesVariant: ["sleepy"],
-    glassesVariant: ["round"],
-    glassesProbability: 100,
-    mouthVariant: ["flat"],
-    nostVariant: ["tall"],
-    outfitVariant: ["hoodie"],
-    topVariant: ["curly"],
-    hairColor: ["030302"],
-    hairColorFill: ["radial"],
-    shirtColor: ["0F0E0E"],
-    pantsColor: ["291919"],
-    shoesColor: ["E8E8E3"],
-    skinColor: ["D9B482"],
-    backgroundColor: ["16161a"]
-  } as const;
-  const avatar = new Avatar(style, options);
+  const avatar = new Avatar(style, AVATAR_OPTIONS);
   const svg = avatar.toString();
 
   return (
@@ -50,6 +51,6 @@ export default function AvatarArt({ className = "", size = "w-28 h-28 sm:w-36 sm
 
 export function getAvatarSvg() {
   const style = new Style(definition);
-  const avatar = new Avatar(style, {});
+  const avatar = new Avatar(style, AVATAR_OPTIONS);
   return avatar.toString();
 }
