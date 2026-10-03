@@ -7,7 +7,7 @@ import nextPlugin from "@next/eslint-plugin-next"
 
 export default defineConfig([
   {
-    ignores: [".next/**", "node_modules/**", "out/**", "build/**"],
+    ignores: [".next/**", "node_modules/**", "out/**", "build/**", "next-env.d.ts"],
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
@@ -19,7 +19,12 @@ export default defineConfig([
       ...nextPlugin.configs.recommended.rules,
     },
     extends: ["js/recommended"],
-    languageOptions: { globals: globals.browser },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
     settings: {
       react: {
         version: "19",
@@ -39,6 +44,12 @@ export default defineConfig([
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+    },
+  },
+  {
+    files: ["mdx-components.tsx"],
+    rules: {
+      "@next/next/no-img-element": "off",
     },
   },
 ]);

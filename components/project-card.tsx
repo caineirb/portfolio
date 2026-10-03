@@ -70,7 +70,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   const currentImage = candidateImages[imageIndex];
-  const isGif = typeof currentImage === "string" && currentImage.toLowerCase().includes(".gif");
   const isNdaRestricted = project.availability === "NDA";
   const targetUrl = project.projectUrl;
 
@@ -104,7 +103,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               className="object-cover group-hover:scale-105 transition-transform duration-500"
               onError={handleImageError}
               priority={false}
-              unoptimized={isGif}
+              unoptimized={true}
             />
 
             {/* Gradient Overlay */}

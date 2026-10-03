@@ -129,36 +129,26 @@ export function detectRepoType(url?: string): RepoType {
 
 /**
  * Helper to get candidate image paths for a project card and primary slide.
- * Looks for `/projects/${id}/${id}.gif`, `.png`, `.jpg`, `.jpeg`,
- * with fallbacks to root `/projects/${id}.*` and `/projects/default-project.png`.
+ * The backend route `/api/projects/[id]/image` automatically scans the filesystem
+ * and serves the correct image and MIME type dynamically.
  */
 export function getProjectCandidateImages(project: Project): string[] {
   return [
-    `/projects/${project.id}/${project.id}.gif`,
-    `/projects/${project.id}/${project.id}.png`,
-    `/projects/${project.id}/${project.id}.jpg`,
-    `/projects/${project.id}/${project.id}.jpeg`,
-    `/projects/${project.id}/${project.id}.avif`,
-    `/projects/${project.id}.gif`,
-    `/projects/${project.id}.png`,
-    `/projects/${project.id}.jpg`,
-    `/projects/${project.id}.jpeg`,
+    `/api/projects/${project.id}/image`,
     "/projects/default-project.png",
-    "/projects/default-project.jpg",
-    "/projects/default-project.jpeg",
   ];
 }
 
 /**
  * Helper to resolve fallback gallery images for a project modal slideshow.
- * Defaults to the primary resolved image. Additional images are auto-discovered from the folder.
+ * Defaults to the primary resolved image from the backend.
  */
 export function getProjectSlideshowImages(
   project: Project,
   mainResolvedImage?: string
 ): string[] {
   const primary =
-    mainResolvedImage || `/projects/${project.id}/${project.id}.gif`;
+    mainResolvedImage || `/api/projects/${project.id}/image`;
   return [primary];
 }
 

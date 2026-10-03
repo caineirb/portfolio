@@ -182,9 +182,6 @@ export default function ProjectModal({
   }, [isOpen, onClose, slides.length]);
 
   const activeImage = slides[currentSlide] || resolvedPrimary;
-  const isGif =
-    typeof activeImage === "string" &&
-    activeImage.toLowerCase().includes(".gif");
   const isVideo =
     typeof activeImage === "string" &&
     /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(activeImage);
@@ -300,7 +297,7 @@ export default function ProjectModal({
                 className="object-cover transition-all duration-300"
                 onError={handleSlideError}
                 priority
-                unoptimized={isGif}
+                unoptimized={true}
               />
             )}
 

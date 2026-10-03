@@ -43,7 +43,7 @@ export const academicProjects: Project[] = [
     section: "academic",
     category: "Programming Languages",
     availability: "Visible",
-    role: ["System Architecture", "Programmer"],
+    role: ["System Architect", "Programmer"],
     period: "2026",
     description:
       "This project implements an abstract machine with a stack, memory, and support for arithmetic, logical, comparison, and control flow operations. Programs are written in a custom assembly language with semicolon-separated instructions.",
@@ -60,7 +60,7 @@ export const academicProjects: Project[] = [
     section: "academic",
     category: "Computer Vision",
     availability: "Visible",
-    role: ["Embedder Model Architecture", "Lead Developer"],
+    role: ["Embedder Model Architect", "Lead Developer"],
     period: "2025",
     description:
       `This project implements a complete person re-identification (ReID) and video tracking system using deep learning. It combines:
