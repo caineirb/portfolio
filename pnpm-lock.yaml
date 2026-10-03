@@ -8,18 +8,24 @@ importers:
 
   .:
     dependencies:
+      '@dicebear/core':
+        specifier: ^10.7.0
+        version: 10.7.0
+      '@dicebear/styles':
+        specifier: ^10.6.0
+        version: 10.6.0
       '@heroicons/react':
         specifier: ^2.2.0
-        version: 2.2.0(react@19.2.8)
+        version: 2.2.0(react@19.3.0)
       '@mdx-js/loader':
         specifier: ^3.1.1
         version: 3.1.1(supports-color@9.4.0)
       '@mdx-js/react':
         specifier: ^3.1.1
-        version: 3.1.1(@types/react@19.0.7)(react@19.2.8)
+        version: 3.1.1(@types/react@19.0.7)(react@19.3.0)
       '@next/mdx':
         specifier: ^15.5.19
-        version: 15.5.24(@mdx-js/loader@3.1.1(supports-color@9.4.0))(@mdx-js/react@3.1.1(@types/react@19.0.7)(react@19.2.8))
+        version: 15.5.24(@mdx-js/loader@3.1.1(supports-color@9.4.0))(@mdx-js/react@3.1.1(@types/react@19.0.7)(react@19.3.0))
       '@tailwindcss/forms':
         specifier: ^0.5.11
         version: 0.5.11(tailwindcss@3.4.17)
@@ -34,28 +40,28 @@ importers:
         version: 2.1.1
       mdx-mermaid:
         specifier: ^2.0.4
-        version: 2.0.4(mermaid@11.17.2)(react@19.2.8)(supports-color@9.4.0)(typescript@5.7.3)(unist-util-visit@4.1.2)
+        version: 2.0.4(mermaid@11.17.2)(react@19.3.0)(supports-color@9.4.0)(typescript@5.7.3)(unist-util-visit@4.1.2)
       mermaid:
         specifier: ^11.17.2
         version: 11.17.2
       next:
         specifier: ^15.5.19
-        version: 15.5.19(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 15.5.19(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next-auth:
         specifier: 5.0.0-beta.25
-        version: 5.0.0-beta.25(next@15.5.19(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+        version: 5.0.0-beta.25(next@15.5.19(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       postcss:
         specifier: 8.5.1
         version: 8.5.1
       react:
         specifier: latest
-        version: 19.2.8
+        version: 19.3.0
       react-dom:
         specifier: latest
-        version: 19.2.8(react@19.2.8)
+        version: 19.3.0(react@19.3.0)
       react-icons:
         specifier: ^5.6.0
-        version: 5.6.0(react@19.2.8)
+        version: 5.6.0(react@19.3.0)
       rehype-mdx-import-media:
         specifier: ^1.4.0
         version: 1.4.0(supports-color@9.4.0)
@@ -73,7 +79,7 @@ importers:
         version: 5.7.3
       use-debounce:
         specifier: ^10.1.1
-        version: 10.1.1(react@19.2.8)
+        version: 10.1.1(react@19.3.0)
       zod:
         specifier: ^3.25.76
         version: 3.25.76
@@ -81,6 +87,9 @@ importers:
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.6.0(jiti@1.21.7)(supports-color@9.4.0))
+      '@next/eslint-plugin-next':
+        specifier: ^16.3.8
+        version: 16.3.8(eslint@10.6.0(jiti@1.21.7)(supports-color@9.4.0))
       '@types/node':
         specifier: 22.10.7
         version: 22.10.7
@@ -142,6 +151,13 @@ packages:
 
   '@chevrotain/types@11.1.2':
     resolution: {integrity: sha512-U+HFai5+zmJCkK86QsaJtoITlboZHBqrVketcO2ROv865xfCMSFpELQoz1GkX5GzME8pTa+3kbKrZHQtI0gdbw==}
+
+  '@dicebear/core@10.7.0':
+    resolution: {integrity: sha512-JUOzKOd8RUByJJo8ZL+C7YE/pvEsWewfpbWUmR8OIQZWv/PvUQHnohdevySC3icyyxe6EIU/8B/rQgA42us1QA==}
+    engines: {node: '>=22.0.0'}
+
+  '@dicebear/styles@10.6.0':
+    resolution: {integrity: sha512-KhxbEVI+z8TaenX58+ZhIRFBt7adggu/F+8g6ZYLu43H2/lgLuWA3Kg8vHBrCVWdfTTTt1p2wUhQomIkkypTuQ==}
 
   '@emnapi/runtime@1.11.1':
     resolution: {integrity: sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==}
@@ -408,6 +424,9 @@ packages:
 
   '@next/env@15.5.19':
     resolution: {integrity: sha512-sWWluFvcv5v3Fxznmf2ZfjyoVQt/64oCnYqS90inQWGzMPK1VjvekPiz3OPHKmFT30EnHrjlbyaHLt3M0vWabw==}
+
+  '@next/eslint-plugin-next@16.3.8':
+    resolution: {integrity: sha512-eCR9RcLTZrVS+K3+VOhi0xMdUUGNuriCHHhU1ZoABC/QQ/Gp0OWbLKQxV2/9DkmihYdYRcQWFmZXW8M1AMUXYw==}
 
   '@next/mdx@15.5.24':
     resolution: {integrity: sha512-lqTiwSIbxPPXPnzOOGUwRS4yI42nFHJu5gRbkpZ+ET8xsNAwZ8Mm0l+Ijo8Zv9kY4TvCQ558hbY9B8zJ+XXC5A==}
@@ -1547,6 +1566,10 @@ packages:
 
   fast-fifo@1.3.2:
     resolution: {integrity: sha512-/d9sfos4yxzpwkDkuN7k2SqFKtYNmCTzgfEpz82x34IM9/zc8KGxQoXg1liNC/izpRM/MBdt44Nmx41ZWqk+FQ==}
+
+  fast-glob@3.3.1:
+    resolution: {integrity: sha512-kNFPyjhh5cKjrUltxs+wFx+ZkbRaxxmZ+X0ZU31SOsxCEtP9VPgtq2teZw1DebupL5GmDaNQ6yKMMVcM41iqDg==}
+    engines: {node: '>=8.6.0'}
 
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
@@ -2729,10 +2752,10 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-dom@19.2.8:
-    resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
+  react-dom@19.3.0:
+    resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
     peerDependencies:
-      react: ^19.2.8
+      react: ^19.3.0
 
   react-icons@5.6.0:
     resolution: {integrity: sha512-RH93p5ki6LfOiIt0UtDyNg/cee+HLVR6cHHtW3wALfo+eOHTp8RnU2kRkI6E+H19zMIs03DyxUG/GfZMOGvmiA==}
@@ -2742,8 +2765,8 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react@19.2.8:
-    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
+  react@19.3.0:
+    resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -2867,8 +2890,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  scheduler@0.27.0:
-    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -3401,6 +3424,10 @@ snapshots:
 
   '@chevrotain/types@11.1.2': {}
 
+  '@dicebear/core@10.7.0': {}
+
+  '@dicebear/styles@10.6.0': {}
+
   '@emnapi/runtime@1.11.1':
     dependencies:
       tslib: 2.8.1
@@ -3440,9 +3467,9 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@heroicons/react@2.2.0(react@19.2.8)':
+  '@heroicons/react@2.2.0(react@19.3.0)':
     dependencies:
-      react: 19.2.8
+      react: 19.3.0
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -3625,11 +3652,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@mdx-js/react@3.1.1(@types/react@19.0.7)(react@19.2.8)':
+  '@mdx-js/react@3.1.1(@types/react@19.0.7)(react@19.3.0)':
     dependencies:
       '@types/mdx': 2.0.14
       '@types/react': 19.0.7
-      react: 19.2.8
+      react: 19.3.0
 
   '@mermaid-js/parser@1.2.1':
     dependencies:
@@ -3637,12 +3664,19 @@ snapshots:
 
   '@next/env@15.5.19': {}
 
-  '@next/mdx@15.5.24(@mdx-js/loader@3.1.1(supports-color@9.4.0))(@mdx-js/react@3.1.1(@types/react@19.0.7)(react@19.2.8))':
+  '@next/eslint-plugin-next@16.3.8(eslint@10.6.0(jiti@1.21.7)(supports-color@9.4.0))':
+    dependencies:
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.6.0(jiti@1.21.7)(supports-color@9.4.0))
+      fast-glob: 3.3.1
+    transitivePeerDependencies:
+      - eslint
+
+  '@next/mdx@15.5.24(@mdx-js/loader@3.1.1(supports-color@9.4.0))(@mdx-js/react@3.1.1(@types/react@19.0.7)(react@19.3.0))':
     dependencies:
       source-map: 0.7.6
     optionalDependencies:
       '@mdx-js/loader': 3.1.1(supports-color@9.4.0)
-      '@mdx-js/react': 3.1.1(@types/react@19.0.7)(react@19.2.8)
+      '@mdx-js/react': 3.1.1(@types/react@19.0.7)(react@19.3.0)
 
   '@next/swc-darwin-arm64@15.5.19':
     optional: true
@@ -5046,6 +5080,14 @@ snapshots:
   fast-fifo@1.3.2:
     optional: true
 
+  fast-glob@3.3.1:
+    dependencies:
+      '@nodelib/fs.stat': 2.0.5
+      '@nodelib/fs.walk': 1.2.8
+      glob-parent: 5.1.2
+      merge2: 1.4.1
+      micromatch: 4.0.8
+
   fast-glob@3.3.3:
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -5908,10 +5950,10 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdx-mermaid@2.0.4(mermaid@11.17.2)(react@19.2.8)(supports-color@9.4.0)(typescript@5.7.3)(unist-util-visit@4.1.2):
+  mdx-mermaid@2.0.4(mermaid@11.17.2)(react@19.3.0)(supports-color@9.4.0)(typescript@5.7.3)(unist-util-visit@4.1.2):
     dependencies:
       mermaid: 11.17.2
-      react: 19.2.8
+      react: 19.3.0
       unist-util-visit: 4.1.2
     optionalDependencies:
       estree-util-to-js: 1.2.0
@@ -6498,21 +6540,21 @@ snapshots:
   netmask@2.1.1:
     optional: true
 
-  next-auth@5.0.0-beta.25(next@15.5.19(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8):
+  next-auth@5.0.0-beta.25(next@15.5.19(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0):
     dependencies:
       '@auth/core': 0.37.2
-      next: 15.5.19(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      react: 19.2.8
+      next: 15.5.19(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react: 19.3.0
 
-  next@15.5.19(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  next@15.5.19(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       '@next/env': 15.5.19
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001799
       postcss: 8.4.31
-      react: 19.2.8
-      react-dom: 19.2.8(react@19.2.8)
-      styled-jsx: 5.1.6(react@19.2.8)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      styled-jsx: 5.1.6(react@19.3.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.5.19
       '@next/swc-darwin-x64': 15.5.19
@@ -6871,18 +6913,18 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@19.2.8(react@19.2.8):
+  react-dom@19.3.0(react@19.3.0):
     dependencies:
-      react: 19.2.8
-      scheduler: 0.27.0
+      react: 19.3.0
+      scheduler: 0.28.0
 
-  react-icons@5.6.0(react@19.2.8):
+  react-icons@5.6.0(react@19.3.0):
     dependencies:
-      react: 19.2.8
+      react: 19.3.0
 
   react-is@16.13.1: {}
 
-  react@19.2.8: {}
+  react@19.3.0: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -7088,7 +7130,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  scheduler@0.27.0: {}
+  scheduler@0.28.0: {}
 
   semver@6.3.1: {}
 
@@ -7335,10 +7377,10 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.7
 
-  styled-jsx@5.1.6(react@19.2.8):
+  styled-jsx@5.1.6(react@19.3.0):
     dependencies:
       client-only: 0.0.1
-      react: 19.2.8
+      react: 19.3.0
 
   stylis@4.4.0: {}
 
@@ -7649,9 +7691,9 @@ snapshots:
   urlpattern-polyfill@10.0.0:
     optional: true
 
-  use-debounce@10.1.1(react@19.2.8):
+  use-debounce@10.1.1(react@19.3.0):
     dependencies:
-      react: 19.2.8
+      react: 19.3.0
 
   util-deprecate@1.0.2: {}
 

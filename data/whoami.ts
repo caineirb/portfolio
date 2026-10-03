@@ -23,7 +23,7 @@ export const BIO: Bio = {
     name: "Caine Ivan R. Bautista",
     image: "/profile.jpg",
     position: "Software Engineer",
-    location: "Iligan City, Philippines",
+    location: "Surigao City, Philippines",
     bio: "I'm a software engineer with experience in developing and maintaining software systems. I'm passionate about building scalable, high-performance, and user-friendly applications. I thrive on turning complex problems into elegant, maintainable code, specializing in modern web technologies.",
     email: "caineivanr.bautista@gmail.com",
     github: "https://github.com/caineirb",

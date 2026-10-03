@@ -137,7 +137,7 @@ export default function Whoami() {
                                     <ul className="text-slate-400 text-sm mt-2 space-y-1">
                                         {job.description.map((desc, i) => (
                                             <li key={i} className="flex items-start gap-2">
-                                                <div className="w-2 h-2 bg-slate-600 rounded-full mt-2"></div>
+                                                <div className="w-2 h-2 bg-slate-600 rounded-full mt-2 shrink-0"></div>
                                                 <span>{desc}</span>
                                             </li>
                                         ))}

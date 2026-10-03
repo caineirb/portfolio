@@ -2,6 +2,14 @@ import "./globals.css";
 import Terminal from "@/components/terminal";
 import React from "react";
 
+
+export const metadata = {
+  title: "Caine Bautista | Backend, ML & Computer Vision Engineer",
+  description:
+    "Portfolio of Caine Ivan R. Bautista - Software Engineer specializing in scalable backends (FastAPI, NestJS), real-time computer vision (YOLO, ReID), and production machine learning.",
+};
+
+
 export default function RootLayout({
   children,
 }: {
