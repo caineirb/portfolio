@@ -11,7 +11,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
                     color: '#f8fafc',
                     fontSize: '28px',
                     lineHeight: '1.2',
-                    margin: '0 0 20px',
+                    margin: '20px 0 20px',
                     fontWeight: 700,
                     fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
                     width: '100%',
@@ -28,6 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             <h2 {...props} style={{
                 color: '#e2e8f0',
                 fontSize: '22px',
+                margin: '10px 0 10px',
                 lineHeight: '1.3',
                 marginBottom: '14px',
                 fontWeight: 600,
@@ -40,6 +41,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             <h3 {...props} style={{
                 color: '#cbd5e1',
                 fontSize: '18px',
+                margin: '8px 0 8px',
                 lineHeight: '1.4',
                 marginBottom: '12px',
                 fontWeight: 600,

@@ -54,7 +54,7 @@ export default function commands(args: string[]): Command {
                             <div key={cmdName}>
                                 <div className="text-green-400">{cmdData.name}:</div>
                                 <div className="ml-8">
-                                    {cmdName === 'echo' ? 'echo [text]' : cmdName} - {cmdData.description}
+                                    {cmdName === 'echo' ? '`echo` [text]' : `\`${cmdName}\``} - {cmdData.description}
                                 </div>
                             </div>
                         ))}

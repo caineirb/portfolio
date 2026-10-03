@@ -335,7 +335,7 @@ export default function Terminal() {
                 {history.map((entry) => (
                     <div key={entry.id} className="mb-2">
                         <div className="flex flex-wrap">
-                            <span className="text-blue-400 mr-2 shrink-0">caineirb@portfolio:~</span>
+                            <span className="text-blue-400 mr-2 shrink-0">caineirb@portfolioOS:~</span>
                             <span className="break-all">$ {entry.command}</span>
                         </div>
                         <div className="mt-1 text-gray-300 whitespace-pre-wrap break-all">
@@ -345,7 +345,7 @@ export default function Terminal() {
                 ))}
 
                 <div className="flex items-start">
-                    <span className="text-blue-400 mr-2 shrink-0 mt-[1px]">caineirb@portfolio:~</span>
+                    <span className="text-blue-400 mr-2 shrink-0 mt-[1px]">caineirb@portfolioOS:~</span>
                     <span className="shrink-0 mr-1 mt-[1px]">$ </span>
                     <textarea
                         ref={inputRef}

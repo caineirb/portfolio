@@ -390,9 +390,8 @@ export default function ProjectModal({
             {/* Bottom Dots Indicator */}
             {slides.length > 1 && (
               <div
-                className={`absolute left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 border border-slate-700/70 backdrop-blur-md shadow-xl transition-all ${
-                  isVideo ? "bottom-14" : "bottom-4"
-                }`}
+                className={`absolute left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 border border-slate-700/70 backdrop-blur-md shadow-xl transition-all ${isVideo ? "bottom-14" : "bottom-4"
+                  }`}
               >
                 {slides.map((_, idx) => (
                   <button
@@ -404,8 +403,8 @@ export default function ProjectModal({
                     }}
                     aria-label={`Go to slide ${idx + 1}`}
                     className={`transition-all duration-300 rounded-full focus:outline-none ${currentSlide === idx
-                        ? "w-6 h-2 bg-green-500 shadow-sm shadow-green-500/50"
-                        : "w-2 h-2 bg-slate-500/60 hover:bg-slate-300"
+                      ? "w-6 h-2 bg-green-500 shadow-sm shadow-green-500/50"
+                      : "w-2 h-2 bg-slate-500/60 hover:bg-slate-300"
                       }`}
                   />
                 ))}
@@ -497,8 +496,8 @@ export default function ProjectModal({
                 {project.notes && (
                   <div
                     className={`rounded-2xl p-5 sm:p-6 border transition-all ${isNdaRestricted
-                        ? "bg-amber-500/5 border-amber-500/30 text-slate-300"
-                        : "bg-slate-950/50 border-slate-800 text-slate-300"
+                      ? "bg-amber-500/5 border-amber-500/30 text-slate-300"
+                      : "bg-slate-950/50 border-slate-800 text-slate-300"
                       }`}
                   >
                     <div className="flex items-center gap-2 mb-2.5 font-semibold text-xs uppercase tracking-wider">
@@ -636,13 +635,6 @@ export default function ProjectModal({
               </a>
             )}
           </div>
-
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs sm:text-sm font-medium transition-colors"
-          >
-            Close
-          </button>
         </div>
       </div>
     </div>,

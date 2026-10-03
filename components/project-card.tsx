@@ -86,6 +86,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     categoryColorMap[project.category] ||
     "text-green-400 bg-green-500/10 border-green-500/30";
 
+  const MAX_VISIBLE_TAGS = 5;
+  const allTechs = project.technologies || [];
+  const shouldTruncateTechs = allTechs.length > MAX_VISIBLE_TAGS + 1;
+  const visibleTechs = shouldTruncateTechs
+    ? allTechs.slice(0, MAX_VISIBLE_TAGS)
+    : allTechs;
+  const remainingTechsCount = allTechs.length - visibleTechs.length;
+
   return (
     <>
       <article
@@ -198,11 +206,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </div>
           )}
 
-          {/* Technologies Tags */}
-          {project.technologies && project.technologies.length > 0 && (
+          {/* Technologies Tags (Compact preview with +N more) */}
+          {allTechs.length > 0 && (
             <div className="pt-0.5">
               <div className="flex flex-wrap gap-1">
-                {project.technologies.map((tech) => (
+                {visibleTechs.map((tech) => (
                   <span
                     key={tech}
                     className="px-2 py-0.5 bg-slate-800/70 text-slate-300 hover:text-green-400 hover:border-green-500/30 rounded-md text-[11px] font-medium border border-slate-700/50 transition-colors"
@@ -210,6 +218,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     {tech}
                   </span>
                 ))}
+                {remainingTechsCount > 0 && (
+                  <span
+                    className="px-2 py-0.5 bg-slate-800/50 text-slate-400 group-hover:text-green-400 group-hover:border-green-500/30 rounded-md text-[11px] font-medium border border-slate-700/50 transition-colors"
+                    title={`Click to view all ${allTechs.length} technologies in details`}
+                  >
+                    +{remainingTechsCount} more
+                  </span>
+                )}
               </div>
             </div>
           )}
